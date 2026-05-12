@@ -29,7 +29,7 @@ struct TemplateDetailView: View {
             )
         }
         .navigationDestination(item: $startedSession) { session in
-            WorkoutExecutionPlaceholderView(session: session)
+            WorkoutExecutionView(session: session)
         }
         .alert(
             "Something went wrong",
