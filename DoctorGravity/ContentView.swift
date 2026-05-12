@@ -3,7 +3,17 @@ import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        TemplateListView()
+        TabView {
+            TemplateListView()
+                .tabItem {
+                    Label("Workouts", systemImage: "figure.strengthtraining.traditional")
+                }
+
+            HistoryView()
+                .tabItem {
+                    Label("History", systemImage: "clock.arrow.circlepath")
+                }
+        }
     }
 }
 
