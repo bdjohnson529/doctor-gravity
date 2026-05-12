@@ -1,0 +1,63 @@
+name: DoctorGravity
+options:
+  bundleIdPrefix: com.doctorgravity
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: minimal
+targets:
+  DoctorGravity:
+    type: application
+    platform: iOS
+    sources:
+      - path: DoctorGravity
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.doctorgravity.app
+        PRODUCT_NAME: DoctorGravity
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        ENABLE_PREVIEWS: YES
+  DoctorGravityTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: DoctorGravityTests
+    dependencies:
+      - target: DoctorGravity
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.doctorgravity.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  DoctorGravity:
+    build:
+      targets:
+        DoctorGravity: all
+        DoctorGravityTests: [test]
+    test:
+      targets:
+        - DoctorGravityTests
+      gatherCoverageData: false

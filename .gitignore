@@ -1,0 +1,30 @@
+## Xcode build artifacts
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+
+## Generated project (regenerate with `xcodegen`)
+DoctorGravity.xcodeproj/
+
+## Swift Package Manager
+.swiftpm/
+.build/
+Packages/
+Package.resolved
+
+## macOS / editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+## Secrets
+Config.xcconfig.local
+*.env
+.env
+.env.*
+
+## Logs
+*.log
