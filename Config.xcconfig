@@ -1,0 +1,15 @@
+// Build-time fallback for LLM API keys. Optional — the in-app Settings view
+// stores keys in Keychain and takes precedence. For local development you can
+// either fill values in directly here, or (recommended) create
+// Config.xcconfig.local next to this file with your real keys. That file is
+// gitignored.
+
+// Default everything to empty so committed builds never ship a key.
+OPENAI_API_KEY = 
+ANTHROPIC_API_KEY =
+GOOGLE_API_KEY =
+
+// Optional overrides. The `?` suffix on #include? means "skip silently if the
+// file isn't present" — required so checked-out copies without a local file
+// still build.
+#include? "Config.xcconfig.local"

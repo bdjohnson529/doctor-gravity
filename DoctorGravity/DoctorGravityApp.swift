@@ -3,12 +3,9 @@ import SwiftData
 
 @main
 struct DoctorGravityApp: App {
-    private let llmService: LLMServiceProtocol = MockLLMService()
-
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.llmService, llmService)
         }
         .modelContainer(for: [
             WorkoutTemplate.self,
@@ -23,24 +20,31 @@ struct DoctorGravityApp: App {
     }
 }
 
-/// Bridges the SwiftData `modelContext` env value into the `WorkoutManager`
-/// env value. Built once when the root view first appears so the manager
-/// lifetime matches the scene's container.
+/// Owns the singletons that need the scene's `modelContext` or want a stable
+/// lifetime across the app: the settings store, the LLM client built from it,
+/// and the WorkoutManager. Created once when the view first appears.
 private struct RootView: View {
     @Environment(\.modelContext) private var modelContext
+    @State private var settingsStore: LLMSettingsStore?
+    @State private var llmService: LLMServiceProtocol?
     @State private var workoutManager: WorkoutManager?
 
     var body: some View {
         Group {
-            if let workoutManager {
+            if let settingsStore, let llmService, let workoutManager {
                 ContentView()
+                    .environment(\.llmService, llmService)
+                    .environment(\.llmSettingsStore, settingsStore)
                     .environment(\.workoutManager, workoutManager)
             } else {
                 Color.clear
             }
         }
         .task {
-            if workoutManager == nil {
+            if settingsStore == nil {
+                let store = LLMSettingsStore()
+                settingsStore = store
+                llmService = LLMService(settings: { @MainActor in store.snapshot })
                 workoutManager = WorkoutManager(modelContext: modelContext)
             }
         }
