@@ -2,14 +2,16 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.llmService) private var llmService
+
     var body: some View {
-        VStack(spacing: 12) {
-            Text("Doctor Gravity")
-                .font(.largeTitle.bold())
-            Text("Phase 1 — Models & Persistence")
-                .foregroundStyle(.secondary)
-        }
-        .padding()
+        TemplateGeneratorView(
+            viewModel: TemplateGeneratorViewModel(
+                service: llmService,
+                modelContext: modelContext
+            )
+        )
     }
 }
 

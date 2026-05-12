@@ -3,9 +3,12 @@ import SwiftData
 
 @main
 struct DoctorGravityApp: App {
+    private let llmService: LLMServiceProtocol = MockLLMService()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.llmService, llmService)
         }
         .modelContainer(for: [
             WorkoutTemplate.self,
